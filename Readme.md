@@ -1,5 +1,6 @@
 url deploy = https://rafsanjani41-monokotilshop.pbp.cs.ui.ac.id/
 
+## Tugas 1
 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 saya mengimplementasikan checklist di atas secara step by step dengan menerapkan apa yang sudah saya pelajari baik di kelas maupun saat tutorial. Saya juga beberapa kali melakukan debug dengan melihat beberapa sumber referensi yang ada dan juga menanyakan kepada teman yang memahaminya lebih baik. Saya juga sering kali bereksperimen dengan kode saya, sehingga at the end kode saya berjalan sesuai dengan requirements yang ada.
 
@@ -47,3 +48,5 @@ Menurut saya, framework django dijadikan permulaan pembelajaran pada matkul PBP 
 
 6. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
 Menurut saya,sejauh ini tutorialnya sudah sangat baik dan jelas.
+
+## Tugas 2

@@ -1,52 +1,117 @@
-url deploy = https://rafsanjani41-monokotilshop.pbp.cs.ui.ac.id/
+# Monokotil Shop
 
-## Tugas 1
-1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
-saya mengimplementasikan checklist di atas secara step by step dengan menerapkan apa yang sudah saya pelajari baik di kelas maupun saat tutorial. Saya juga beberapa kali melakukan debug dengan melihat beberapa sumber referensi yang ada dan juga menanyakan kepada teman yang memahaminya lebih baik. Saya juga sering kali bereksperimen dengan kode saya, sehingga at the end kode saya berjalan sesuai dengan requirements yang ada.
+**URL Deploy**: [https://rafsanjani41-monokotilshop.pbp.cs.ui.ac.id/](https://rafsanjani41-monokotilshop.pbp.cs.ui.ac.id/)
 
-1.Membuat repo GitHub dan menghubungkan origin, kemudian push awal (README, .gitignore). Kemudian saya menggunakan branch master lalu push ke github.
-
-
-2.Membuat folder proyek, aktifkan venv, mengisi requirements.txt (django, gunicorn, whitenoise, psycopg2-binary, requests, urllib3, python-dotenv), lalu pip install -r requirements.txt. Memastikan lingkungan terisolasi dan siap untuk development maupun deploy. 
-
-3.Menjalankan django-admin startproject monokotil_shop . .Command ini menghasilkan manage.py dan paket proyek monokotil_shop/. 
-
-4.Membuat .env (development) berisi PRODUCTION=False. membuat .env.prod (production PWS) berisi kredensial Postgres dari ITF (DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, SCHEMA=tugas_individu, PRODUCTION=True).
-
-5.Di settings.py, load_dotenv(), saya set PRODUCTION dari env, tambahkan ALLOWED_HOSTS = ["localhost","127.0.0.1"] dan tambahkan domain PWS pada ALLOWED_HOSTS. 
-
-6.Menjalankan migrasi awal & server dev dengan command python manage.py migrate lalu python manage.py runserver untuk memastikan proyek run di lokal (cek http://localhost:8000). 
-
-7.Membuat aplikasi main dengan command python manage.py startapp main, lalu menambahkan 'main' di INSTALLED_APPS. 
-
-8.Di main/models.py, saya mendifinisikan model dengan atribut sesuai ketentuan yang ada. Kemudian saya menjalankan makemigrations + migrate setiap kali model berubah. 
-
-9.Membuat main/templates/main.html. Di main/views.py, kemudian buat show_main(request) yang menyusun context (app_name, name, class) dan render("main.html", context).
-
-
-10.Membuat main/urls.py dengan path('', show_main, name='show_main'). Di monokotil_shop/urls.py , include('main.urls') pada path '' sehingga root / menampilkan halaman utama. Kemudian saya jalankan server dan cek pada http://localhost:8000/. 
-
-11.Menyiapkan .gitignore, pastikan .gitignore mengabaikan db.sqlite3, env/, .env*, dsb, agar file sensitif/berat tidak ter-track.  
-
-12.Saya login ke pbp.cs.ui.ac.id, buat project dengan nama monokotilshop, buka tab Environs, paste isi .env.prod, set SCHEMA=tugas_individu & PRODUCTION=True.
-
-13.Menambahkan URL PWS saya ke ALLOWED_HOSTS (rafsanjani41-monokotilshop.pbp.cs.ui.ac.id), commit & push.
-kemudian menjalankan “Project Command” pertama dari PWS, dan untuk update berikutnya cukup git push pws master. Tunggu status Running, lalu saya mengakses URL deploy (rafsanjani41-monokotilshop.pbp.cs.ui.ac.id).
-
-2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-bagan.png
-![gambar bagan](bagan.png)
-
-3. Jelaskan peran settings.py dalam proyek Django!
-settings.py memiliki peran utama dalam proyek django meliputi penghubungan dengan database dan pendefinisian jenis database yang akan digunakan, mendefinisikan aplikasi yang akan digunakan dalam proyek, menentukan urutan permintaan request, mengatur url dan template, menyimpan secret key dan mendefinisikan domain mana saja yang diizinkan untuk menjalankan proyek. Singkatnya, settings.py berguna untuk menghubungkan dan memastikan setiap komponen yang ada bekerja dengan benar dan sesuai dengan konfigurasi yang sudah ditetapkan
-
-4. Bagaimana cara kerja migrasi database di Django?
-Pertama, developer akan membuat migrasi.Saat perubahan terjadi pada models.py, dan perintah python manage.py makemigrations dijalankan, maka django akan membandingkan kode dari models.py dengan kode yang terakhir yang sudah tercatat pada migrasi dan melihat perubahan yang ada. Secara otomatis, django akan membuat sebuah berkas migrasi yang baru yang berisi sekumpulan intruksi untuk mengubah skema database yang sudah ada. Berkas ini tidak akan langsung mengubah databse, melainkan hanya mendokumentasikan perubahan yang sudah ada. Kedua, .developer menerapkan migrasi. Setelah developer menjalankan perintah python manage.py migrate, django akan membaca berkas yang sudah dibuat sebelumnya, dan menjalankan intruksi di dalamnya. 
-
-5. Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
-Menurut saya, framework django dijadikan permulaan pembelajaran pada matkul PBP karena framework django lebih mudah untuk dipelajari dibandingkan dengan framework lainnya baik secara teknis maupun teori. Penggunaan bahasa python juga menjadi penyebabnya, karena jika dibandingkan dengan bahasa pemrograman lain, python yang paling mudah dan simple, sehiingga kita hanya perlu fokus pada function dan method pada django nya saja.
-
-6. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
-Menurut saya,sejauh ini tutorialnya sudah sangat baik dan jelas.
+---
 
 ## Tugas 2
+
+### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Saya mengimplementasikan checklist di atas secara step by step dengan menerapkan apa yang sudah saya pelajari baik di kelas maupun saat tutorial. Saya juga beberapa kali melakukan debug dengan melihat beberapa sumber referensi yang ada dan juga menanyakan kepada teman yang memahaminya lebih baik. Saya juga sering kali bereksperimen dengan kode saya, sehingga at the end kode saya berjalan sesuai dengan requirements yang ada.
+
+1. Membuat repo GitHub dan menghubungkan origin, kemudian push awal (README, .gitignore). Kemudian saya menggunakan branch master lalu push ke github.  
+2. Membuat folder proyek, aktifkan venv, mengisi `requirements.txt` (django, gunicorn, whitenoise, psycopg2-binary, requests, urllib3, python-dotenv), lalu `pip install -r requirements.txt`. Memastikan lingkungan terisolasi dan siap untuk development maupun deploy.  
+3. Menjalankan `django-admin startproject monokotil_shop .`. Command ini menghasilkan `manage.py` dan paket proyek `monokotil_shop/`.  
+4. Membuat `.env` (development) berisi `PRODUCTION=False`. Membuat `.env.prod` (production PWS) berisi kredensial Postgres dari ITF (`DB_NAME`, `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `SCHEMA=tugas_individu`, `PRODUCTION=True`).  
+5. Di `settings.py`, `load_dotenv()`, saya set `PRODUCTION` dari env, tambahkan `ALLOWED_HOSTS = ["localhost","127.0.0.1"]` dan tambahkan domain PWS pada `ALLOWED_HOSTS`.  
+6. Menjalankan migrasi awal & server dev dengan command `python manage.py migrate` lalu `python manage.py runserver` untuk memastikan proyek run di lokal (cek http://localhost:8000).  
+7. Membuat aplikasi `main` dengan command `python manage.py startapp main`, lalu menambahkan `'main'` di `INSTALLED_APPS`.  
+8. Di `main/models.py`, saya mendefinisikan model dengan atribut sesuai ketentuan yang ada. Kemudian saya menjalankan `makemigrations` + `migrate` setiap kali model berubah.  
+9. Membuat `main/templates/main.html`. Di `main/views.py`, kemudian buat `show_main(request)` yang menyusun context (`app_name`, `name`, `class`) dan `render("main.html", context)`.  
+10. Membuat `main/urls.py` dengan `path('', show_main, name='show_main')`. Di `monokotil_shop/urls.py`, `include('main.urls')` pada path `''` sehingga root `/` menampilkan halaman utama. Kemudian saya jalankan server dan cek pada http://localhost:8000/.  
+11. Menyiapkan `.gitignore`, pastikan `.gitignore` mengabaikan `db.sqlite3`, `env/`, `.env*`, dsb, agar file sensitif/berat tidak ter-track.  
+12. Saya login ke pbp.cs.ui.ac.id, buat project dengan nama monokotilshop, buka tab Environs, paste isi `.env.prod`, set `SCHEMA=tugas_individu` & `PRODUCTION=True`.  
+13. Menambahkan URL PWS saya ke `ALLOWED_HOSTS` (`rafsanjani41-monokotilshop.pbp.cs.ui.ac.id`), commit & push. Kemudian menjalankan “Project Command” pertama dari PWS, dan untuk update berikutnya cukup `git push pws master`. Tunggu status Running, lalu saya mengakses URL deploy.  
+
+---
+
+### 2. Bagan Client Request dan Django Response
+Bagan alur request client ke Django web app beserta hubungan `urls.py`, `views.py`, `models.py`, dan template HTML:  
+
+`bagan.png`  
+![gambar bagan](bagan.png)
+
+---
+
+### 3. Jelaskan peran settings.py dalam proyek Django!
+`settings.py` memiliki peran utama dalam proyek Django meliputi:
+- Penghubungan dengan database dan pendefinisian jenis database yang akan digunakan.  
+- Mendefinisikan aplikasi yang akan digunakan dalam proyek.  
+- Menentukan urutan permintaan request.  
+- Mengatur url dan template.  
+- Menyimpan secret key dan mendefinisikan domain mana saja yang diizinkan untuk menjalankan proyek.  
+
+Singkatnya, `settings.py` berguna untuk menghubungkan dan memastikan setiap komponen yang ada bekerja dengan benar dan sesuai dengan konfigurasi yang sudah ditetapkan.
+
+---
+
+### 4. Bagaimana cara kerja migrasi database di Django?
+1. **Membuat migrasi**: Saat perubahan terjadi pada `models.py`, dan perintah `python manage.py makemigrations` dijalankan, Django akan membandingkan kode dari `models.py` dengan kode terakhir yang sudah tercatat pada migrasi. Django lalu membuat berkas migrasi baru berisi instruksi untuk mengubah skema database.  
+2. **Menerapkan migrasi**: Saat developer menjalankan `python manage.py migrate`, Django membaca berkas migrasi dan menjalankan instruksi di dalamnya untuk mengubah database sesuai model terbaru.  
+
+---
+
+### 5. Mengapa Django dipilih sebagai framework awal pembelajaran?
+Menurut saya, framework Django dijadikan permulaan pembelajaran pada matkul PBP karena:
+- Django lebih mudah dipelajari dibanding framework lain, baik secara teknis maupun teori.  
+- Django menggunakan bahasa Python, yang relatif simple dan mudah dipahami, sehingga fokus bisa lebih pada function dan method dari Django itu sendiri.  
+
+---
+
+### 6. Feedback untuk Asdos Tutorial 1
+Menurut saya, sejauh ini tutorialnya sudah sangat baik dan jelas.  
+
+---
+
+## Tugas 3
+
+### 1. Mengapa kita memerlukan data delivery dalam platform?
+Karena platform butuh bertukar data antara client (browser) dan server (backend). Tanpa mekanisme data delivery, informasi tidak dapat dikirim/diterima dengan benar.  
+
+Contoh: pada tugas ini, Django mengirim daftar product ke browser dalam bentuk HTML, JSON, atau XML. User bisa melihat list produk, menambahkan produk, dan mengambil data lewat endpoint XML atau JSON.  
+
+---
+
+### 2. Mana yang lebih baik antara XML dan JSON?
+Menurut saya, JSON lebih baik daripada XML karena:
+- Syntax JSON lebih readable dan efisien.  
+- JSON lebih populer pada framework web modern.  
+- JSON lebih compact, lebih mudah di-load dibandingkan XML yang lebih strict.  
+
+---
+
+### 3. Fungsi method is_valid() pada form Django
+`is_valid()` digunakan untuk memvalidasi data yang dikirimkan pengguna melalui `forms.py` sesuai model yang sudah didefinisikan. Kita membutuhkan method ini untuk:
+- Mencegah data atau input invalid masuk ke database.  
+- Mencegah error saat `form.save()`.  
+
+---
+
+### 4. Mengapa kita membutuhkan csrf_token?
+`csrf_token` adalah token unik untuk mencegah serangan **CSRF (Cross-Site Request Forgery)**.  
+
+Jika tidak ada `csrf_token`, penyerang bisa menyalahgunakan request POST pada aplikasi.  
+Contoh: pihak lain bisa menggunakan fungsi **add product** dan menambahkan data palsu.  
+
+---
+
+### 5. Implementasi Checklist Step-by-Step
+1. Menambahkan 4 fungsi baru pada `views.py`: `show_xml`, `show_json`, `show_xml_by_id`, `show_json_by_id`.  
+2. Membuat routing URL untuk fungsi baru pada `urls.py`.  
+3. Memodifikasi `main.html` pada `/main/templates/` dengan tombol **add product** dan **detail**.  
+4. Membuat `create_product.html` pada `/main/templates/` untuk form tambah produk.  
+5. Membuat `product_detail.html` pada `/main/templates/` untuk detail produk.  
+6. Push ke GitHub & PWS, lalu cek apakah output sudah sesuai.  
+
+---
+
+### 6. Feedback untuk Asdos Tutorial 2
+Tidak ada, sudah sangat baik dan sangat membantu.  
+
+---
+
+### Dokumentasi Output
+- ![XML](xml.png)  
+- ![JSON](json.png)  
+- ![JSON by id](json_by_id.png)  
+- ![XML by id](xml_by_id.png)  

@@ -4,3 +4,40 @@
 <p>{{ name }}<p>
 <h5>Class: </h5>
 <p>{{ class }}</p>
+
+<p>
+<a href="{% url 'main:add_product' %}">
+    <button> + Add Product</button>
+</a>
+
+<hr>
+
+
+{% if not products_list %}
+    <p>Belum ada produk di Monokotil Shop.</p>
+ {% else %}
+    {% for product in products_list%}
+        <div style="margin-bottom:16px;">
+        <h2>
+            <a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a>
+        </h2>
+        <p>
+            Kategori: <b>{{ product.category }}</b> 
+            Harga: <b>Rp {{ product.price }}</b>
+            Stock: <b>{{product.stocks}}</b>
+            Rarity: <b>{{ product.stocks }}⭐</b>
+        </p>
+
+        {% if product.thumbnail %}
+            <img src="{{ product.thumbnail }}" alt="{{ product.name }}" width="150" height="100"><br>
+        {% endif %}
+
+        <p>{{ product.description|truncatewords:25 }}...</p>
+
+        <a href="{% url 'main:show_product' product.id %}">
+            <button>Detail</button>
+        </a>
+        </div>
+        <hr>
+{% endfor %}
+{% endif %}

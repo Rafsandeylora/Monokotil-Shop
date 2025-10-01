@@ -118,7 +118,7 @@ Tidak ada, sudah sangat baik dan sangat membantu.
 
 ---
 
-## Tugas 3
+## Tugas 4
 
 ### 1. Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya.
 
@@ -213,3 +213,103 @@ Tidak ada, sudah sangat baik dan sangat membantu.
 5. Saya menerapkan **cookies** agar data dapat tersimpan sebagai cookies, sehingga sesi login pengguna akan tetap tersimpan selama mereka belum melakukan logout.  
 
 6. Terakhir, saya mengintegrasikan setiap produk yang dibuat ke satu pengguna, sehingga setiap produk akan selalu terhubung dengan pengguna tertentu.
+
+---
+
+## Tugas 5
+
+### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+Jika terdapat beberapa *selector* CSS untuk suatu elemen HTML, *browser* akan menentukan *selector* mana yang akan diprioritaskan berdasarkan **spesifisitas** (*specificity*). Aturan dasarnya adalah, semakin spesifik sebuah *selector*, semakin tinggi prioritasnya.
+
+Urutan prioritas dari yang **paling tinggi** ke **paling rendah** adalah sebagai berikut:
+
+1.  **Inline Styles**: Atribut `style` yang ditulis langsung pada tag HTML.
+    -   Contoh: `<div style="color: red;">`
+2.  **ID Selector**: *Selector* yang menargetkan elemen berdasarkan atribut `id` uniknya.
+    -   Contoh: `#main-header { ... }`
+3.  **Class, Attribute, dan Pseudo-class Selectors**:
+    -   **Class**: Menargetkan elemen dengan atribut `class` tertentu. Contoh: `.btn-primary { ... }`
+    -   **Attribute**: Menargetkan elemen dengan atribut tertentu. Contoh: `input[type="text"] { ... }`
+    -   **Pseudo-class**: Menargetkan *state* tertentu dari elemen. Contoh: `a:hover { ... }`
+4.  **Type Selectors dan Pseudo-elements**:
+    -   **Type**: Menargetkan semua elemen dari tipe tag HTML yang sama. Contoh: `h1, p, div { ... }`
+    -   **Pseudo-element**: Menargetkan bagian spesifik dari sebuah elemen. Contoh: `p::first-line { ... }`
+
+> Terdapat *rule* `!important` yang dapat mengesampingkan semua urutan prioritas di atas, namun penggunaannya sangat tidak dianjurkan karena dapat membuat kode CSS sulit untuk dikelola dan di-*debug*.
+
+---
+
+### 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+
+*Responsive design* adalah konsep fundamental dalam pengembangan web modern yang bertujuan agar tampilan sebuah situs web dapat beradaptasi secara otomatis dengan berbagai ukuran layar perangkat, mulai dari *desktop*, tablet, hingga *smartphone*.
+
+Konsep ini menjadi sangat penting karena:
+-   **Aksesibilitas Multi-perangkat**: Pengguna mengakses internet dari berbagai perangkat. *Responsive design* memastikan pengalaman pengguna tetap optimal, mudah dibaca, dan mudah dinavigasi tanpa perlu melakukan *zoom* atau *scroll* horizontal.
+-   **Meningkatkan SEO**: Google dan mesin pencari lainnya memprioritaskan situs yang *mobile-friendly*, sehingga situs yang responsif cenderung mendapatkan peringkat atas saat di-search.
+-   **Meningkatkan Jangkauan Pengguna**: Dengan pengalaman yang baik di perangkat mobile, situs dapat menjangkau audiens yang lebih luas, terutama di era di mana akses internet via *smartphone* mendominasi.
+
+**Contoh Aplikasi:**
+-   **Sudah Menerapkan ()**: **Twitter/X**. Tampilannya berubah drastis dari versi *desktop* ke *mobile*. Di *desktop*, terdapat tiga kolom (navigasi kiri, *timeline* tengah, dan tren kanan). Di *mobile*, semua itu disederhanakan menjadi satu kolom utama, dan menu navigasi dipindahkan ke bagian bawah layar untuk kemudahan akses dengan jari.
+-   **Belum Menerapkan ()**: **Website akademik atau pemerintahan yang lama**. Beberapa situs akademik atau pemerintahan yang lebih tua seringkali tidak responsif. Tampilannya dibuat dengan lebar tetap (*fixed-width*) untuk *desktop*. Ketika diakses melalui *mobile*, seluruh halaman akan terlihat sangat kecil, memaksa pengguna untuk melakukan *zoom* manual untuk membaca konten, sehingga memberikan pengalaman pengguna yang buruk.
+
+---
+
+### 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+Ketiga properti ini merupakan komponen inti dari **CSS Box Model**, yang mendefinisikan bagaimana elemen HTML dirender sebagai "kotak" dengan ruang di sekitarnya.
+
+-   **Padding**: Ruang transparan yang berada **di dalam** *border*, yaitu antara konten elemen (teks/gambar) dengan *border* itu sendiri.
+    -   *Implementasi*: `padding: 20px;` atau `padding-left: 10px;`
+
+-   **Border**: Garis yang mengelilingi *padding* dan konten. *Border* bisa diatur ketebalan, gaya (solid, dashed), dan warnanya.
+    -   *Implementasi*: `border: 2px solid #333;`
+
+-   **Margin**: Ruang transparan yang berada **di luar** *border*. *Margin* berfungsi untuk memberikan jarak antara elemen tersebut dengan elemen lain di sekitarnya.
+    -   *Implementasi*: `margin: 15px;` atau `margin-bottom: 25px;`
+
+```css
+.box {
+  padding: 20px;
+  
+  border: 1px solid black;
+  
+  margin: 10px;
+}
+```
+
+---
+### 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+**Flexbox** dan **Grid** adalah dua sistem *layout* modern di CSS yang digunakan untuk mengatur posisi dan perataan elemen dengan lebih efisien dibandingkan metode lama (seperti `float` atau `position`).
+
+#### Flexbox (Flexible Box Layout)
+-   **Konsep**: Didesain untuk *layout* **satu dimensi**, baik sebagai baris (*row*) maupun sebagai kolom (*column*).
+-   **Kegunaan**: Digunakan untuk mengatur item-item di dalam sebuah *container*. Contohnya:
+    -   Membuat menu navigasi horizontal yang itemnya terdistribusi rapi.
+    -   Meratakan item (misalnya, sebuah tombol) secara vertikal di tengah *container*.
+    -   Mengatur item-item dalam sebuah *card* agar sejajar, meskipun kontennya memiliki tinggi yang berbeda.
+    -   `display: flex; justify-content: space-between; align-items: center;`
+
+#### Grid Layout
+-   **Konsep**: Didesain untuk *layout* **dua dimensi**, yaitu baris dan kolom secara bersamaan. Ini memungkinkan kontrol penuh atas penempatan elemen dalam sebuah petak (grid).
+-   **Kegunaan**: Sempurna untuk tata letak halaman secara keseluruhan atau komponen yang kompleks. Contohnya:
+    -   Membangun struktur utama halaman web (header, *sidebar*, *main content*, *footer*).
+    -   Membuat galeri foto dengan kolom dan baris yang presisi.
+    -   Mengatur *form* yang kompleks di mana label dan *input* harus sejajar dalam sebuah grid.
+    -   `display: grid; grid-template-columns: 2fr 1fr; grid-gap: 20px;`
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+1. Pertama-tama saya mengimplementasikan fungsi untuk mengedit dan menghapus produk di views.py
+
+2. Kemudian saya mengustomisasi halaman daftar product menggunakan css sesuai dengan ketentuan yang ada (menambahkan card_product.html, mengedit kode pada create_product.html, edit_product.html, dll)
+
+3. menambahkan dua button untuk menghapus dan mengedit product yang ada.
+
+4. Membuat navbar yang responsive untuk mobile dan desktop pada file navbar.html
+
+5. Terakhir, saya mengubah design menjadi warna biru untuk tampilan halaman utamanya
+
+6. ADD, COMMIT, dan PUSH semuanya kemudian saya deploy
+
+

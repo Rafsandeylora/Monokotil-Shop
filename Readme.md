@@ -115,3 +115,101 @@ Tidak ada, sudah sangat baik dan sangat membantu.
 - ![JSON](json.png)  
 - ![JSON by id](json_by_id.png)  
 - ![XML by id](xml_by_id.png)  
+
+---
+
+## Tugas 3
+
+### 1. Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya.
+
+`AuthenticationForm` adalah form bawaan Django (`django.contrib.auth.forms.AuthenticationForm`) yang digunakan untuk melakukan login dengan **username** dan **password**. Form ini akan memvalidasi input user terhadap sistem autentikasi Django dan mengembalikan objek user jika berhasil.
+
+**Kelebihan**:
+- tidak perlu membuat form login dari nol.  
+- Terintegrasi langsung dengan sistem autentikasi Django.  
+- Validasi password menggunakan mekanisme hashing bawaan Django.  
+- Mendukung pesan error, internationalization (i18n), dan binding `request`.  
+
+**Kekurangan**:
+- Terbatas hanya pada autentikasi berbasis username & password.  
+- Tidak ada field tambahan (misalnya “remember me”) kecuali di-*customize*.  
+- Tampilan default polos, butuh styling lebih lanjut.  
+- Tidak ada proteksi brute force/rate limiting bawaan, harus ditambahkan sendiri.  
+
+---
+
+### 2. Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+
+- **Autentikasi (authentication)**: proses memastikan siapa yang akan login dan logout. Django menyediakan:
+  - Fungsi `authenticate()`, `login()`, dan `logout()`.
+  - Middleware `AuthenticationMiddleware` yang menambahkan atribut `request.user`.
+  - Form bawaan seperti `AuthenticationForm` dan view `LoginView`.
+
+- **Otorisasi (authorization)**: proses memastikan operasi yang dapat dilakukan setelah identitas diketahui. Django menyediakan:
+  - Sistem `permissions` dan `groups` pada model `User`/`Group`.
+  - Flag seperti `is_staff`, `is_superuser`.
+  - Method `user.has_perm()` dan `user.has_module_perms()`.
+  - Decorator dan mixin: `@login_required`, `PermissionRequiredMixin`, `UserPassesTestMixin`.
+
+---
+
+### 3. Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+
+**Session (server-side)**  
+- **Kelebihan**:  
+  - Data disimpan di server sehingga data lebih aman untuk data sensitif.  
+  - Bisa menyimpan struktur kompleks.  
+  - Session bisa di-*invalidate* dari server (misalnya saat logout).  
+- **Kekurangan**:  
+  - Membutuhkan storage tambahan di server (DB/cache/file).  
+  - Ada beban manajemen (expired session, scaling).  
+  - Masih bergantung pada cookie `sessionid` untuk identifikasi.
+
+**Cookies (client-side)**  
+- **Kelebihan**:  
+  - Implementasinya sederhana sehingga backend bisa tetap stateless.  
+  - Cocok untuk data ringan .  
+  - Tidak butuh storage server.  
+- **Kekurangan**:  
+  - Kapasitas terbatas (~4KB per cookie).  
+  - Mudah dimanipulasi jika tidak ditandatangani/terenkripsi.  
+  - Rentan XSS jika tidak diberi flag `HttpOnly`.  
+  - Tidak cocok untuk menyimpan data sensitif.  
+
+---
+
+### 4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+
+**Cookies tidak selalu otomatis aman secara default.** Terdapat beberapa risiko dari penggunaan cookies yakni:  
+- **XSS** → cookie bisa dicuri jika tidak `HttpOnly`.  
+- **Intersepsi jaringan** → cookie bisa bocor tanpa HTTPS.  
+- **CSRF** → karena browser selalu mengirim cookie ke server secara otomatis.  
+
+**Django menangani hal di atas dengan cara:**  
+- Middleware CSRF protection + token `{% csrf_token %}`.  
+- Pengaturan keamanan cookie di `settings.py`:  
+  - `SESSION_COOKIE_SECURE = True` (hanya lewat HTTPS).  
+  - `SESSION_COOKIE_HTTPONLY = True` (default True, cegah akses via JS).  
+  - `SESSION_COOKIE_SAMESITE = "Lax"`/`"Strict"` (kurangi CSRF).  
+  - `CSRF_COOKIE_SECURE` dan `CSRF_COOKIE_HTTPONLY` untuk token CSRF.  
+- Mendukung signed/encoded cookie agar tidak bisa dimodifikasi sembarangan.  
+- Rotasi session key saat login (`login()` otomatis lakukan ini).  
+- Memiliki password hashing kuat (PBKDF2, Argon2, dll).  
+
+
+---
+
+
+### 5.  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+1. Pertama-tama saya menambahkan fungsi **register** pada `views.py`, membuat file `register.html`, kemudian menambahkan path URL dari register ke `urls.py`.  
+
+2. Kemudian saya membuat fungsi **login** pada `views.py`, membuat file `login.html`, kemudian menambahkan path URL dari login ke `urls.py`.  
+
+3. Selanjutnya saya membuat fungsi **logout** pada `views.py`, dan menambahkan path URL dari logout ke `urls.py`.  
+
+4. Saya juga merestriksi akses dari menu utama dan product details agar hanya pengguna yang sudah terdaftar (logged in) yang dapat mengaksesnya.  
+
+5. Saya menerapkan **cookies** agar data dapat tersimpan sebagai cookies, sehingga sesi login pengguna akan tetap tersimpan selama mereka belum melakukan logout.  
+
+6. Terakhir, saya mengintegrasikan setiap produk yang dibuat ke satu pengguna, sehingga setiap produk akan selalu terhubung dengan pengguna tertentu.

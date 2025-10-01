@@ -37,6 +37,16 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'rafsanjani41-monokotilshop.pbp.cs.ui
 CSRF_TRUSTED_ORIGINS = [
     "https://rafsanjani41-monokotilshop.pbp.cs.ui.ac.id"
 ]
+
+STATIC_URL = '/static/'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static' # merujuk ke /static root project pada mode development
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / 'static' # merujuk ke /static root project pada mode production
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

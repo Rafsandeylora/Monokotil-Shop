@@ -1,34 +1,92 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>{{ product.name }} - Monokotil Shop</title>
+{% endblock meta %}
+
 {% block content %}
+<div class="bg-gray-50 w-full min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="mb-6">
+            <a href="{% url 'main:show_main' %}" class="inline-flex items-center text-gray-600 hover:text-blue-700 font-medium transition-colors group">
+                <span class="mr-2 transform group-hover:-translate-x-1 transition-transform duration-200">←</span>
+                Back to Products
+            </a>
+        </div>
+        
+        <article class="bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden">
+            
+            <div class="p-6 sm:p-8">
+                <div class="flex flex-wrap items-center gap-3 mb-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-600 text-white">
+                        {{ product.get_category_display }}
+                    </span>
+                    {% if product.is_featured %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400 text-yellow-900">
+                            Featured
+                        </span>
+                    {% endif %}
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                    {{ product.name }}
+                </h1>
+                
+                <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4">
+                    <time datetime="">
+                        Product ID: {{ product.id }} </time>
+                    <span>
+                        Stock: <b class="font-medium text-gray-700">{{ product.stocks }}</b>
+                    </span>
+                    <span>
+                        Rarity: <b class="font-medium text-yellow-600">{{ product.rarity }}⭐</b>
+                    </span>
+                </div>
+            </div>
 
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>{{ product.name }} — {{ app_name }}</title>
-</head>
-<body>
-  <a href="{% url 'main:show_main' %}">← Kembali ke list produk</a>
-  <h1>{{ product.name }}</h1>
+            {% if product.thumbnail %}
+                <div class="px-6 sm:px-8">
+                    <img src="{{ product.thumbnail }}" 
+                         alt="{{ product.name }}" 
+                         class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
+                </div>
+            {% else %}
+                <div class="px-6 sm:px-8">
+                    <div class="w-full h-64 sm:h-80 lg:h-96 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-lg font-medium">
+                        No Image Available
+                    </div>
+                </div>
+            {% endif %}
 
-  <p>Kategori: <b>{{ product.category }}</b></p>
-  <p>Harga: <b>Rp {{ product.price }}</b></p>
-  <p>Stok: <b>Rp {{ product.stocks }}</b></p>
-  <p>Rarity: <b>{{ product.stocks }}⭐</b></p>
+            <div class="p-6 sm:p-8">
+                <div class="prose prose-lg max-w-none">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Description</h2>
+                    <div class="text-gray-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
+                        {{ product.description }}
+                    </div>
+                    <div class="mt-8 text-xl font-bold text-blue-700">
+                        Price: Rp {{ product.price|floatformat:0 }}
+                    </div>
+                </div>
+            </div>
 
-  {% if product.thumbnail %}
-    <img src="{{ product.thumbnail }}" alt="{{ product.name }}" width="320" height="220">
-  {% endif %}
-
-  <h3>Deskripsi</h3>
-  <p>{{ product.description }}</p>
-
-  {% if product.user %}
-    <p>Author: {{ product.user.username }}</p>
-  {% else %}
-      <p>Author: Anonymous</p>
-  {% endif %}
-</body>
-</html>
-
-
+            <div class="border-t border-gray-100 p-6 sm:p-8 bg-gray-50">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="font-medium text-gray-900">
+                            {% if product.user %}
+                                {{ product.user.username }}
+                            {% else %}
+                                Anonymous
+                            {% endif %}
+                        </div>
+                        <p class="text-sm text-gray-500">Product Owner</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
 {% endblock content %}

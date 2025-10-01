@@ -83,6 +83,24 @@ def show_product(request, id):
     }
     return render(request, "product_details.html", context)
 
+def edit_product(request, id):
+    news = get_object_or_404(Product, pk=id)
+    form = ProducForm(request.POST or None, instance=news)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    news = get_object_or_404(Product, pk=id)
+    news.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
 def show_xml(request):
      news_list = Product.objects.all()
      xml_data = serializers.serialize("xml", news_list)

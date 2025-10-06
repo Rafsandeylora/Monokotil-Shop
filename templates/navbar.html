@@ -3,11 +3,10 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <h1 class="text-xl font-semibold text-gray-900">
-            <span class="text-green-600">Monokotil</span> Shop
+            <span class="text-blue-600">Monokotil</span> Shop
           </h1>
         </div>
         
-        <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-8">
           <a href="/" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">
             Home
@@ -17,7 +16,6 @@
           </a>
         </div>
         
-        <!-- Desktop User Section -->
         <div class="hidden md:flex items-center space-x-6">
           {% if user.is_authenticated %}
             <div class="text-right">
@@ -31,13 +29,12 @@
             <a href="{% url 'main:login' %}" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">
               Login
             </a>
-            <a href="{% url 'main:register' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-medium transition-colors">
+            <a href="{% url 'main:register' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-medium transition-colors">
               Register
             </a>
           {% endif %}
         </div>
         
-        <!-- Mobile Menu Button -->
         <div class="md:hidden flex items-center">
           <button class="mobile-menu-button p-2 text-gray-600 hover:text-gray-900 transition-colors">
             <span class="sr-only">Open menu</span>
@@ -50,10 +47,8 @@
         </div>
       </div>
     </div>
-    <!-- Mobile Menu -->
     <div class="mobile-menu hidden md:hidden bg-white border-t border-gray-200">
       <div class="px-6 py-4 space-y-4">
-        <!-- Mobile Navigation Links -->
         <div class="space-y-1">
           <a href="/" class="block text-gray-600 hover:text-gray-900 font-medium py-3 transition-colors">
             Home
@@ -63,7 +58,6 @@
           </a>
         </div>
         
-        <!-- Mobile User Section -->
         <div class="border-t border-gray-200 pt-4">
           {% if user.is_authenticated %}
             <div class="mb-4">
@@ -78,7 +72,7 @@
               <a href="{% url 'main:login' %}" class="block text-gray-600 hover:text-gray-900 font-medium py-3 transition-colors">
                 Login
               </a>
-              <a href="{% url 'main:register' %}" class="block bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded text-center transition-colors">
+              <a href="{% url 'main:register' %}" class="block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded text-center transition-colors">
                 Register
               </a>
             </div>

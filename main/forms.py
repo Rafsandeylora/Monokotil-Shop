@@ -5,8 +5,4 @@ from django import forms
 class ProducForm(ModelForm):
     class Meta:
         model = Product
-        fields = ["name", "price", "description","rarity","stocks", "thumbnail", "is_featured"]
-
-
-
-        
+        fields = ["name", "price", "description", "category", "rarity", "stocks", "thumbnail", "is_featured"]

@@ -56,6 +56,7 @@ def show_main(request):
         'app_name' : 'Monokotil-Shop',
         'name': 'Rafsanjani',
         'class': 'PBP A',
+        'npm': '2406495400',
         'products_list': products_list,
         'last_login': request.COOKIES.get('last_login', 'Never')
     }
@@ -66,7 +67,7 @@ def create_product(request):
     form = ProducForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-        products_entry = form.save(commit = False)
+        products_entry = form.save(commit=False)
         products_entry.user = request.user
         products_entry.save()
         return redirect('main:show_main')
@@ -76,16 +77,16 @@ def create_product(request):
 
 @login_required(login_url='/login')
 def show_product(request, id):
-    products = get_object_or_404(Product, pk=id)
+    product = get_object_or_404(Product, pk=id)
 
     context = {
-        'product': products
+        'product': product
     }
     return render(request, "product_details.html", context)
 
 def edit_product(request, id):
-    news = get_object_or_404(Product, pk=id)
-    form = ProducForm(request.POST or None, instance=news)
+    product = get_object_or_404(Product, pk=id)
+    form = ProducForm(request.POST or None, instance=product)
     if form.is_valid() and request.method == 'POST':
         form.save()
         return redirect('main:show_main')
@@ -97,33 +98,32 @@ def edit_product(request, id):
     return render(request, "edit_product.html", context)
 
 def delete_product(request, id):
-    news = get_object_or_404(Product, pk=id)
-    news.delete()
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
     return HttpResponseRedirect(reverse('main:show_main'))
 
 def show_xml(request):
-     news_list = Product.objects.all()
-     xml_data = serializers.serialize("xml", news_list)
+     product_list = Product.objects.all()
+     xml_data = serializers.serialize("xml", product_list)
      return HttpResponse(xml_data, content_type="application/xml")
  
 def show_json(request):
-    news_list = Product.objects.all()
-    json_data = serializers.serialize("json", news_list)
+    product_list = Product.objects.all()
+    json_data = serializers.serialize("json", product_list)
     return HttpResponse(json_data, content_type="application/json")
 
-def show_xml_by_id(request, news_id):
+def show_xml_by_id(request, product_id):
    try:
-       news_item = Product.objects.filter(pk=news_id)
-       xml_data = serializers.serialize("xml", news_item)
+       product_item = Product.objects.filter(pk=product_id)
+       xml_data = serializers.serialize("xml", product_item)
        return HttpResponse(xml_data, content_type="application/xml")
    except Product.DoesNotExist:
        return HttpResponse(status=404)
 
-def show_json_by_id(request, news_id):
+def show_json_by_id(request, product_id):
    try:
-       news_item = Product.objects.get(pk=news_id)
-       json_data = serializers.serialize("json", [news_item])
+       product_item = Product.objects.get(pk=product_id)
+       json_data = serializers.serialize("json", [product_item])
        return HttpResponse(json_data, content_type="application/json")
    except Product.DoesNotExist:
        return HttpResponse(status=404)
-

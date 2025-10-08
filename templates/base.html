@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
   </head>
   <body>
+    {% include 'navbar.html' %}
+    
+    <div id="toast-container" class="fixed top-20 right-5 z-[9999]"></div>
+
+    <div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 transition-opacity duration-300"></div>
+    <div id="create-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-8 w-11/12 max-w-lg z-[100] scale-95 opacity-0 transition-all duration-300 hidden"></div>
+    <div id="edit-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-8 w-11/12 max-w-lg z-[100] scale-95 opacity-0 transition-all duration-300 hidden"></div>
+    <div id="delete-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-8 w-11/12 max-w-lg z-[100] scale-95 opacity-0 transition-all duration-300 hidden"></div>
+
     {% block content %} {% endblock content %}
+
+    <script src="{% static 'js/utils.js' %}"></script>
   </body>
 </html>

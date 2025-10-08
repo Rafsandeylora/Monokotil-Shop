@@ -13,9 +13,7 @@
         <p class="text-gray-600">Welcome back to Monokotil Shop</p>
       </div>
 
-      <div id="message-container" class="mb-6"></div>
-
-      <form id="login-form" method="POST" action="" class="space-y-6">
+      <form id="login-form" method="POST" class="space-y-6">
         {% csrf_token %}
         
         <div>
@@ -58,36 +56,36 @@
     </div>
   </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('login-form');
-        const messageContainer = document.getElementById('message-container');
-        
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(form);
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-            fetch("{% url 'main:login_ajax' %}", {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRFToken': csrfToken
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = "{% url 'main:show_main' %}";
-                } else {
-                    messageContainer.innerHTML = `<div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">${data.message}</div>`;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                messageContainer.innerHTML = `<div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">Terjadi kesalahan. Silakan coba lagi.</div>`;
-            });
+<div id="toast" class="fixed bottom-5 right-5 text-white py-3 px-5 rounded-lg shadow-lg hidden transition-opacity duration-300">
+    <p id="toast-message"></p>
+</div>
+
+<script>
+    function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toast-message");
+        toastMessage.innerText = message;
+        toast.className = `fixed bottom-5 right-5 text-white py-3 px-5 rounded-lg shadow-lg transition-opacity duration-300 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`;
+        toast.classList.remove("hidden");
+        setTimeout(() => {
+            toast.classList.add("hidden");
+        }, 3000);
+    }
+
+    document.getElementById("login-form").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const response = await fetch("{% url 'main:login_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.getElementById("login-form"))
         });
+        const data = await response.json();
+        if (data.status === "success") {
+            showToast(data.message, "success");
+            window.location.href = "{% url 'main:show_main' %}";
+        } else {
+            showToast(data.message, "error");
+        }
     });
 </script>
 {% endblock content %}

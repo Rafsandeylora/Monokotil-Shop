@@ -4,7 +4,7 @@ from main.views import (
     register, login_user, logout_user, 
     create_product_ajax, delete_product_ajax, get_product_json,
     register_ajax, login_ajax,
-    show_xml, show_json, show_xml_by_id, show_json_by_id,edit_product_ajax
+    show_xml, show_json, show_xml_by_id, show_json_by_id,edit_product_ajax, login_flutter, register_flutter
 )
 
 app_name = 'main'
@@ -31,4 +31,6 @@ urlpatterns = [
     path('json/', show_json, name='show_json'), 
     path('xml/<int:product_id>/', show_xml_by_id, name='show_xml_by_id'), 
     path('json/<int:product_id>/', show_json_by_id, name='show_json_by_id'),
+    path('login-flutter/', login_flutter, name='login_flutter'),
+    path('register-flutter/', register_flutter, name='register_flutter'),
 ]
